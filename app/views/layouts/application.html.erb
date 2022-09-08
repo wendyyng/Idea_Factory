@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IdeaFactory</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+       <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light ">
+    <a class="navbar-brand px-4" href="<%= root_path %>" style="">Idea Factory</a>
+
+  <div class="navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <ul class="nav navbar-nav mr-auto ">
+      <% if user_signed_in? %>
+        <li class="nav-item pt-2 pe-2 ms-2">
+         Hello <%= current_user.first_name %>
+        </li>
+        <li class="nav-item">
+          <div><%= button_to "Sign out", session_path, method: :delete, class: "btn btn-link text-dark", style:"box-shadow:none" %></div>
+        </li>
+        <li class="nav-item">
+           <div class="px-2"><%= button_to 'New Idea', new_idea_path, method: :get, class:"btn btn-outline-dark" %></div
+        </li>
+      <% end %>
+      <% if !user_signed_in? %>
+      <li class="nav-item mx-2">
+        <a class="btn btn-outline-dark" href="<%= new_session_path %>" style="">Sign In</a>
+      </li>
+      <li class="nav-item me-2">
+        <a class="btn btn-outline-dark" href="<%= new_user_path %>" style="">Sign Up</a>
+       
+      </li>
+      <% end %>
+
+    </ul>
+
+  </div>
+
+</nav>
+<hr style="height: 1px; border: none; margin: 0; background-color: black">
+<div class="container mt-4">
+    <% flash.each do |type, message| %>
+      <div class="alert alert-info" role="alert">
+        <%= type + "------" + message %>
+      </div>
+    <% end %>
+</div>
+
+    <%= yield %>
+  </body>
+</html>

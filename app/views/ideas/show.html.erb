@@ -1,0 +1,74 @@
+<div class="container d-flex justify-content-center">
+<div class="container">
+<div class="container" style="margin: 1em">
+  <h1><%= @idea.title %></h2>
+  <p><%= @idea.description %></p>
+  <small>Posted <%= time_ago_in_words(@idea.created_at) %> ago</small><br>
+  <small>By <%= @idea.user.full_name %></small>
+  <br>
+  <div class="container d-flex p-0">
+  <small class="mt-2 me-1">Likes: <%= @idea.likes.count %></small>
+  <% if @idea.user != current_user%>
+  <small>
+  <% if current_user && @like.present? %>
+  <div><%= button_to "Liked", like_path(@like), method: :delete , class:"btn btn-outline-dark btn-sm" %></div>
+  <% elsif current_user %>
+  <div>
+   <div><%= button_to 'Like', idea_likes_path(@idea), method: :post , class:"btn btn-outline-dark btn-sm" %></div>
+  </div>
+  <% end %>
+  </small>
+  <% end %>
+  </div>
+  <br>
+
+  <%# Edit and Delete Buttons %>
+  <% if can? :crud, @idea %>
+  <div class="btn-group">
+  <%= link_to 'Edit', edit_idea_path(@idea), class: "btn btn-outline-dark me-2 rounded", style: "" %>
+  </br>
+  <%= button_to 'Delete', idea_path(@idea), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-outline-dark"  %>  
+  </div>
+  <% end %>
+
+
+</div>
+
+
+<div class="container" style="margin: 1em">
+<h3>Reviews</h3>
+
+<% if @review.errors.any? %>
+  <ul>
+    <%  @review.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_with(model:[@idea, @review]) do |f| %>
+  <div class="form-group">
+    <%= f.text_area :body, cols: 20, rows: 2, placeholder: "What's on your mind?", class:"form-control", style:"width: 32em" %>
+  </div>
+  <br>
+  <%= f.submit "Submit", class: "btn btn-outline-dark" %>
+<% end %>
+</div>
+<div class="container" style="margin: 1em">
+<% @reviews.each do |review| %>
+  <div class="mb-3">
+    <%= review.body %><br>
+    
+    <span style="display: flex; flex-direction: row; align-items: baseline"><small>Reviewed <%= time_ago_in_words(review.created_at) %> ago by <%= review.user.full_name %></small>
+    <%# Delete Button %>
+    <% if can? :crud, review %>
+    <span><%= button_to "Delete", idea_review_path(@idea, review), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-outline-dark btn-sm mx-2", style:"text-decoration: none; box-shadow:none" %></span></span>
+    <% else %>
+    <br>
+    <% end %>
+    
+  </div>
+<% end %>
+</div>
+
+</div>
+</div>

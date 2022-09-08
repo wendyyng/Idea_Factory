@@ -1,0 +1,30 @@
+<div class="container d-flex justify-content-center">
+<div class="col-sm-6 m-4">
+<h1>Sign Up</h1>
+<div class="form">
+<% if @user.errors.any? %>
+  <p><%= @user.errors.full_messages.join(', ') %> </p>
+<% end %>
+<%= form_with model: @user do |f| %>
+  <div>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, class:"form-control" %>
+  </div>
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, class:"form-control" %>
+  </div>
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email, class:"form-control" %>
+  </div>
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password, class:"form-control" %>
+  </div>
+  <br>
+  <%= f.submit "Sign up", class: "btn btn-outline-dark" %>
+<% end %>
+</div>
+</div>
+</div>
