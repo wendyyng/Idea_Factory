@@ -2,7 +2,7 @@
 
 ## Table of Contents
 - Summary
-- Techgnologies Used
+- Technologies Used
 - Features
 - Screenshots
 - Installation
