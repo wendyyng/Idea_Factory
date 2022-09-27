@@ -26,7 +26,7 @@ Idea Factory is an app that allows users to share ideas and leave reviews.
 - Full CRUD functions: view, create, edit and delete ideas
 - Like and unlike ideas
 - Create and delete reviews
-- Include 6 RSpec controller tests, practising Test Driven Development (TDD).
+- Include 6 RSpec controller tests, practising Test Driven Development (TDD)
 
 ## Screenshots:
 
